@@ -13,3 +13,16 @@ class User(models.Model):
 
     def __str__(self):
         return self.email
+
+class Test(models.Model):
+
+    uid = models.ForeignKey(User,on_delete=models.CASCADE)
+    title = models.CharField(max_length=50)
+    des = models.TextField()
+    price = models.IntegerField()
+    verify = models.BooleanField(default=False)
+    approve_by = models.CharField(max_length=100,null=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title

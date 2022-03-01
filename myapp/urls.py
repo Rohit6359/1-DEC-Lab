@@ -10,4 +10,6 @@ urlpatterns = [
     path('profile/', views.profile,name='profile'),
     path('icons/', views.icons,name='icons'),
     path('change-password/', views.change_password,name='change-password'),
+    path('add-test/',views.add_test,name='add-test'),
+    path('pending-test/',views.pending_test,name='pending-test'),
 ]

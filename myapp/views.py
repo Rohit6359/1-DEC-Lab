@@ -1,4 +1,5 @@
 from tempfile import tempdir
+from turtle import title
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from .models import *
@@ -99,3 +100,27 @@ def change_password(request):
             return JsonResponse({'msg':'Password Updated'})
         return JsonResponse({'msg':'Both new are not same'})
     return JsonResponse({'msg':'Old Password is wrong'})
+
+def add_test(request):
+    uid = User.objects.get(email=request.session['email'])
+    if request.method == 'POST':
+        try:
+            test = Test.objects.get(title=request.POST['name'])
+            msg = f'Test is already in list and status is {test.verify}'
+            return render(request,'add-test.html',{'uid':uid,'msg':msg})
+        except:
+            Test.objects.create(
+                uid = uid,
+                title = request.POST['name'],
+                price = request.POST['price'],
+                des = request.POST['des'],
+            )
+            msg = 'Test added and waiting for Approvel'
+            return render(request,'add-test.html',{'uid':uid,'msg':msg})
+    return render(request,'add-test.html',{'uid':uid})
+
+def pending_test(request):
+    uid = User.objects.get(email=request.session['email'])
+    tests = Test.objects.all()[::-1]
+    print(tests)
+    return render(request,'pending-test.html',{'uid':uid,'tests':tests})
