@@ -121,6 +121,38 @@ def add_test(request):
 
 def pending_test(request):
     uid = User.objects.get(email=request.session['email'])
-    tests = Test.objects.all()[::-1]
-    print(tests)
-    return render(request,'pending-test.html',{'uid':uid,'tests':tests})
+    tests = Test.objects.filter(verify=False,reject=False)[::-1]
+    app_test = Test.objects.filter(verify = True)
+    return render(request,'pending-test.html',{'uid':uid,'tests':tests,'app_test':app_test})
+
+def approve_test(request,pk):
+    test = Test.objects.get(id=pk)
+    test.verify = True
+    test.approve_by = request.session['email']
+    test.test_on = True
+    test.save()
+    return redirect('pending-test')
+
+def reject_test(request,pk):
+    test = Test.objects.get(id=pk)
+    test.reject = True
+    test.save()
+    return redirect('pending-test')
+
+def test_status_en(request,pk):
+    test = Test.objects.get(id=pk)
+    test.test_on = True
+    test.save()
+    return redirect('pending-test')
+
+
+def test_status_des(request,pk):
+    test = Test.objects.get(id=pk)
+    test.test_on = False
+    test.save()
+    return redirect('pending-test')
+
+def test_delete(request,pk):
+    test = Test.objects.get(id=pk)
+    test.delete()
+    return redirect('pending-test')

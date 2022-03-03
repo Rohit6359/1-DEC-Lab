@@ -50,7 +50,6 @@
                 </thead>
                 <tbody class="list">
                   {% for test in tests %}
-                  {% if test.verify == False %}
                   <tr>
                     <th scope="row">
                       <div class="media align-items-center">
@@ -75,10 +74,10 @@
                       {{test.des}}
                     </td>
                     <td>
-                      <button class="btn btn-success">Approve</button>
+                      <a href="{% url 'approve-test' test.id %}"><button class="btn btn-success">Approve</button></a>
                     </td>
                     <td>
-                      <button class="btn btn-danger">Reject</button>
+                      <a href="{% url 'reject-test' test.id %}"><button class="btn btn-danger">Reject</button></a>
                     </td>
                     <td class="text-right">
                       <div class="dropdown">
@@ -93,7 +92,81 @@
                       </div>
                     </td>
                   </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="card bg-default shadow">
+            <div class="card-header bg-transparent border-0">
+              <h3 class="text-white mb-0">Approved  Test</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-dark table-flush">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="name">Test Name</th>
+                    <th scope="col" class="sort" data-sort="budget">Test Cost</th>
+                    <th scope="col" class="sort" data-sort="status">Status</th>
+                    <th scope="col">Description</th>
+                    <th scope="col" class="sort" colspan="1" data-sort="completion" style="text-align: center;">Action</th>
+                    <th scope="col">More</th>
+                  </tr>
+                </thead>
+                <tbody class="list">
+                  {% for test in app_test %}
+                  {% if test.test_on == False %}
+                  <tr style="background-color: black;">
+                  {% else %}
+                  <tr>
                   {% endif %}
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <a href="#" class="avatar rounded-circle mr-3">
+                          <img alt="Image placeholder" src="{% static '/assets/img/theme/bootstrap.jpg' %}">
+                        </a>
+                        <div class="media-body">
+                          <span class="name mb-0 text-sm">{{test.title}}</span>
+                        </div>
+                      </div>
+                    </th>
+                    <td class="budget">
+                      <i class="fa fa-inr"></i> {{test.price}} /-
+                    </td>
+                    <td>
+                      <span class="badge badge-dot mr-4">
+                        <i class="bg-warning"></i>
+                        {% if test.test_on == True %}<span class="status">Enabled </span> {% else %} <span class="status">Disabled </span> {% endif %}
+                      </span>
+                    </td>
+                    <td>
+                      {{test.des}}
+                    </td>
+                    <td>
+                      <button class="btn btn-success" disabled>Approved</button>
+                    </td>
+                    
+                    <td class="text-right">
+                      <div class="dropdown">
+                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                          {% if test.test_on == True %}
+                          <a class="dropdown-item" href="{% url 'test-status-dis' test.id %}">Test Disable</a>
+                          {% else %}
+                          <a class="dropdown-item" href="{% url 'test-status-en' test.id %}">Test Enable </a>
+                          {% endif %}
+                          <a class="dropdown-item" href="{% url 'test-delete' test.id %}">Test Delete</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
                   {% endfor %}
                 </tbody>
               </table>

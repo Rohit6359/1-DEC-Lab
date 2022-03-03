@@ -22,7 +22,9 @@ class Test(models.Model):
     price = models.IntegerField()
     verify = models.BooleanField(default=False)
     approve_by = models.CharField(max_length=100,null=True,blank=True)
+    reject = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    test_on = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
