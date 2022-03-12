@@ -9,6 +9,7 @@ class User(models.Model):
     mobile = models.CharField(max_length=15)
     address = models.TextField()
     password = models.CharField(max_length=25)
+    role = models.CharField(max_length=50,default='Doctor')
     pic = models.FileField(upload_to='Profile Pic',default='avtar.png')
 
     def __str__(self):

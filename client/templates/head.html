@@ -64,9 +64,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="{% url 'cindex' %}">Home</a></li>
 					<li><a href="{% url 'about' %}">About</a></li>
-					<li><a href="{% url 'codes' %}">Short Codes</a></li>
 					<li><a href="{% url 'treatments' %}">Treatments</a></li>
 					<li><a href="{% url 'contact' %}">Contact</a></li>
+					<li><a href="{% url 'contact' %}">Login/Sign Up</a></li>
 				</ul>	
 				<div class="clearfix"> </div>	
 			</div>
@@ -89,10 +89,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<li><a class="fb-icon4" href="#"></a></li>
 			<li><a class="fb-icon5" href="#"></a></li>
 		</ul>
-		<form action="#" method="post">
-			<input type="text" value="Name" name="Name" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='Name';}">
-			<input type="email" value="Email" name="Email" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='Email';}">
-			<textarea name="Message" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message';}" required="">Message</textarea>
+		<form action="{% url 'inquiry' %}" method="POST">
+			{% csrf_token %}
+			<input type="text" placeholder="Name" name="name" style="width: 100%;" required><br><br><br>
+			<input type="text" placeholder="Tel :" name="mobile" required>
+			<input type="email" placeholder="Email :" name="email" required>
+			<textarea name="des" required placeholder="Message"></textarea>
 			<div class="con-form text-center">
 				<input type="submit" value="Send">
 			</div>

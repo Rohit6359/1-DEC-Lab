@@ -93,71 +93,24 @@
 	<div class="container">
 		<h3 class="title">Team</h3>
 		<div class="team-grids">
-			
+			{% for i in admins %}
 			<div class="col-md-3 team-grid agile">
 				<div class="team-img">
 					<div class="view second-effect">
-						<img src="{% static 'images/3.jpg' %}" alt="" class="img-responsive" />
+						<img src="{{i.pic.url}}" alt="" class="img-responsive" />
 						<div class="mask">
-							<p>Ophthalmologist</p>
+							<p>{{i.role}}</p>
 							<ul>
-								<li><a class="fb-icon1" href="#"></a></li>
-								<li><a class="fb-icon2" href="#"></a></li>
-								<li><a class="fb-icon3" href="#"></a></li>
+								<li><a href="mailto:{{i.email}}" class="fb-icon1"></a></li>
+								<li><a href="tel:+01{{i.mobile}}" class="fb-icon2"></a></li>
+								<li><a class="fb-icon3" href="{{i.pic.url}}"></a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
-				<h4>Federica</h4>
+				<h4>{{i.name}}</h4>
 			</div>
-			<div class="col-md-3 team-grid agile">
-				<div class="team-img">
-					<div class="view second-effect">
-						<img src="{% static 'images/4.jpg' %}" alt="" class="img-responsive" />
-						<div class="mask w3-agile">
-							<p>Neurologist</p>
-							<ul>
-								<li><a class="fb-icon1" href="#"></a></li>
-								<li><a class="fb-icon2" href="#"></a></li>
-								<li><a class="fb-icon3" href="#"></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<h4>Victoria</h4>
-			</div>
-			<div class="col-md-3 team-grid">
-				<div class="team-img agile">
-					<div class="view second-effect">
-						<img src="{% static 'images/2.jpg' %}" alt="" class="img-responsive" />
-						<div class="mask w3-agile">
-							<p>Cardiologist</p>
-							<ul>
-								<li><a class="fb-icon1" href="#"></a></li>
-								<li><a class="fb-icon2" href="#"></a></li>
-								<li><a class="fb-icon3" href="#"></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<h4>John Doe</h4>
-			</div>
-			<div class="col-md-3 team-grid">
-				<div class="team-img">
-					<div class="view second-effect">
-						<img src="{% static 'images/4.jpg' %}" alt="" class="img-responsive" />
-						<div class="mask agileits-w3layouts">
-							<p>Dermatologist</p>
-							<ul>
-								<li><a class="fb-icon1" href="#"></a></li>
-								<li><a class="fb-icon2" href="#"></a></li>
-								<li><a class="fb-icon3" href="#"></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<h4>Laura</h4>
-			</div>
+			{% endfor %}
 			<div class="clearfix"></div>
 		</div>
 	</div>
