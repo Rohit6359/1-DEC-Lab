@@ -1,0 +1,27 @@
+{% extends 'head.html' %}
+{% load static %}
+{% block header %}
+
+<!-- banner -->
+<div class="contact_w3agile">
+	<div class="container">
+		<h2 class="title w3">Login Page</h2>
+		<div class="strip"></div>
+        <ul></ul>
+		<form action="{% url 'signin' %}" method="POST">
+			{% csrf_token %}
+			<div class="con-form text-center">
+
+			<input type="email" placeholder="Email" name="email" style="width: 50%;" required><br><br><br>
+            <input type="password" placeholder="Password" name="password" style="width: 50%;" required><br><br><br>
+            </div>
+			<div class="con-form text-center">
+				<input type="submit" value="Login">
+			</div>
+		</form>
+		<p class="agileinfo">&copy; 2017 Clinical Lab . All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+	</div>
+</div>
+ 
+<!-- contact -->
+{% endblock %}

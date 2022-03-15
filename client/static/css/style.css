@@ -1049,7 +1049,7 @@ h3.title ,h2.title{
     margin: 0 auto;
 }
 
-.contact_w3agile form input[type="text"],.contact_w3agile form input[type="email"]{
+.contact_w3agile form input[type="text"],.contact_w3agile form input[type="email"], .contact_w3agile form input[type="password"]{
     background: none;
     border: 2px solid transparent;
     border-bottom: 2px solid #fff;
@@ -1104,7 +1104,7 @@ h3.title ,h2.title{
 	-o-transition:0.5s all;
 	-ms-transition:0.5s all;
 }
-.contact_w3agile form input[type="submit"]:hover,.contact_w3agile form input[type="text"]:hover,.contact_w3agile form input[type="email"]:hover,.contact_w3agile textarea:hover {
+.contact_w3agile form input[type="submit"]:hover,.contact_w3agile form input[type="text"]:hover,.contact_w3agile form input[type="email"]:hover,.contact_w3agile form input[type="password"]:hover,.contact_w3agile textarea:hover {
     border: 2px solid #00d2d4;
 	color:#00d2d4;
 	transition:0.5s all;
@@ -2734,14 +2734,14 @@ line-height:2.2em;
 	.list-left h4 {
 		font-size: 22px;
 	}
-	.contact_w3agile form input[type="text"], .contact_w3agile form input[type="email"] {
+	.contact_w3agile form input[type="text"], .contact_w3agile form input[type="email"], .contact_w3agile form input[type="password"] {
 		padding: 7px 7px;
 	}
 	.contact_w3agile form input[type="text"] {
 		margin-right: 0%;
 		margin-bottom:30px;
 	}
-	.contact_w3agile form input[type="text"], .contact_w3agile form input[type="email"] {
+	.contact_w3agile form input[type="text"], .contact_w3agile form input[type="email"], .contact_w3agile form input[type="password"] {
 		width: 100%;
 	}	
 	.contact_w3agile textarea {
@@ -3114,7 +3114,7 @@ line-height:2.2em;
 		top: 9px;
 		left: 2px;
 	}
-	.contact_w3agile form input[type="text"], .contact_w3agile form input[type="email"] {
+	.contact_w3agile form input[type="text"], .contact_w3agile form input[type="email"], .contact_w3agile form input[type="password"] {
 		font-size: 14px;
 	}
 	.contact_w3agile textarea {

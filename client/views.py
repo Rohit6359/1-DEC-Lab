@@ -6,7 +6,7 @@ from .models import *
 # Create your views here.
 
 def index(request):
-    tests = Test.objects.filter(verify = True, test_on=True)
+    tests = Test.objects.filter(verify=True)
     return render(request,'clientindex.html',{'tests':tests})
 
 def about(request):
@@ -33,3 +33,6 @@ def inquiry(request):
         des = request.POST['des']
     )
     return redirect('cindex')
+def signin(request):
+    return render(request,'signin.html')
+  

@@ -44,6 +44,7 @@ def register(request):
                     'mobile' : request.POST['mobile'],
                     'address' : request.POST['address'],
                     'password' : request.POST['password'],
+                    'role' : request.POST['role'],
                 }
                 otp = randrange(1000,9999)
                 subject = 'welcome to Lab App'
@@ -65,7 +66,8 @@ def otp(request):
                 email = temp['email'],
                 mobile = temp['mobile'],
                 address = temp['address'],
-                password = temp['password']
+                password = temp['password'],
+                role = temp['role']
             )
             msg = "Account is Created"
             return render(request,'login.html',{'msg':msg})
