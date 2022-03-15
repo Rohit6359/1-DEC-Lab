@@ -1,5 +1,5 @@
 from django.db import models
-
+from myapp.models import *
 # Create your models here.
 
 class ClientUser(models.Model):
@@ -29,3 +29,16 @@ class Inquiry(models.Model):
 
     def __str__(self):
         return self.fullname
+
+class BookingTest(models.Model):
+    
+    choices = (('Online','Online'),('On Clinic','On Clinic'))
+
+    client = models.ForeignKey(ClientUser,on_delete=models.CASCADE)
+    test = models.ForeignKey(Test,on_delete=models.CASCADE)
+    date = models.DateField()
+    book_time = models.DateTimeField(auto_now_add=True)
+    pay_type = models.CharField(max_length=50,choices=choices)
+
+    def __str__(self):
+        return self.test.title 

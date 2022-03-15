@@ -103,13 +103,14 @@
 		<h3 class="title">Our Tests </h3>
 		<div class="services_right w3-agile">
 			{% for test in tests %}
-			<div class="col-md-4 list-left text-center wow bounceInDown" data-wow-duration="1.5s" data-wow-delay="0.1s">
+			
+			<div class="col-md-4 list-left text-center wow bounceInDown" style="margin-top: 20px;" data-wow-duration="1.5s" data-wow-delay="0.1s">
 				<span><img src="{% static 'images/icon1.png' %}" alt=" "/></span>
 				<h4>{{test.title}}</h4>
 				<div class="multi-gd-text"><a href="#"><img class="img-responsive" src="{% static 'images/p5.jpg' %}" alt=" "/></a></div>
 				<p>{{test.des}}</p>
 				<h5>Book at just : <i class="fa fa-rupee"></i> {{test.price}}/- </h5><br><br>
-				<a href=""><button class="btn btn-primary">Book Test</button></a>
+				<a href="{% url 'view-test' test.id %}"><button class="btn btn-primary">View Test</button></a>
 			</div>
 			{% endfor %}
 			<!-- <div class="col-md-4 list-left text-center wow bounceInDown" data-wow-duration="1.5s" data-wow-delay="0.2s">

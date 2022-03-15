@@ -123,8 +123,8 @@ def add_test(request):
 
 def pending_test(request):
     uid = User.objects.get(email=request.session['email'])
-    tests = Test.objects.filter(verify=False,reject=False)[::-1]
-    app_test = Test.objects.filter(verify = True)
+    tests = Test.objects.filter(uid=uid,verify=False,reject=False)[::-1]
+    app_test = Test.objects.filter(uid=uid,verify = True)
     return render(request,'pending-test.html',{'uid':uid,'tests':tests,'app_test':app_test})
 
 def approve_test(request,pk):
