@@ -40,7 +40,8 @@ def signin(request):
 
 def book_test(request,pk):
     try:
-        ClientUser.objects.get(email=request.session['username'])
+        client = ClientUser.objects.get(email=request.session['username'])
+        
     except:
         return redirect('signin')
 
