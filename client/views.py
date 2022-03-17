@@ -31,8 +31,6 @@ def codes(request):
 def contact(request):
     return render(request,'contact.html')
 
-def header(request):
-    return render(request,'header.html')
 
 def treatments(request):
     return render(request,'treatments.html')
