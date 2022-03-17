@@ -1,0 +1,23 @@
+{% extends 'head.html' %}
+{% load static %}
+{% block header %}
+<div class="contact_w3agile">
+    <div class="container">
+        <h2 class="title w3">OTP</h2>
+        <div class="strip"></div>
+        <ul></ul>
+        <form action="{% url 'cotp' %}" method="POST">
+            {% csrf_token %}
+            <div class="con-form text-center">
+
+                <input type="text" placeholder="otp" name="uotp" style="width: 50%;" required><br><br><br>
+
+            </div>
+            <input type="hidden" value="{{otp}}" name="otp">
+            <div class="con-form text-center">
+                <input type="submit" value="Verify OTP">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

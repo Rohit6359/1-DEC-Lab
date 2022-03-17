@@ -11,4 +11,8 @@ urlpatterns = [
     path('signin/',views.signin,name='signin'),
     path('book-test/<int:pk>',views.book_test,name='book-test'),
     path('view-test/<int:pk>',views.view_test,name='view-test'),
+    path('signup/',views.signup,name='signup'),
+    path('cotp/',views.cotp,name='cotp'),
+
+
 ]
