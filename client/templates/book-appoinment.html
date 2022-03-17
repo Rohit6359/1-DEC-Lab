@@ -1,0 +1,111 @@
+{% extends 'head.html' %}
+{% load static %}
+
+{% block header %}
+
+
+
+<div class="about all_pad">
+	<div class="container">
+		<h3 class="title">About Test Details</h3>
+		<div class="services-grids w3layouts">
+			<div class="col-md-6 ser-right-page">
+				<div class="port-2 effect-3">
+                	<div class="image-box w3">
+                    	<img src="{% static 'images/a1.jpg' %}" alt=" "/>
+                    </div>
+                    <div class="text-desc">
+                    	<h4>{{test.title}}</h4>
+                        <p>{{test.des}}</p>
+                    </div>
+                </div>
+			</div>
+			<div class="col-md-6 ser-left-page">
+				<div class="services-grid w3l">
+					<div class="services-left w3ls">
+						<p>👉</p>
+					</div>
+					<div class="services-right agileits">
+						<h4>{{test.title}}</h4>
+						<p>{{test.des}}</p>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="services-grid agileinfo">
+					<div class="services-left wthree">
+						<p>👉</p>
+					</div>
+					<div class="services-right w3-agileits">
+						<h4>Just started at : {{test.price}}</h4>
+						<p>Test specialist : {{test.uid.name}} ({{test.uid.role}})</p>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+
+<style>
+    input[type=date],  select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    
+    input[type=submit] {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+    
+    .formbody {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    </style>
+
+<div class="formbody">
+    <form action="{% url 'proceed-test' test.id %}" method="POST">
+        {% csrf_token %}
+      <!-- <label for="fname">First Name</label>
+      <input type="text" id="fname" name="firstname" placeholder="Your name.."> -->
+  
+      <label for="lname">Booking Date</label>
+      <input type="date"  name="date" placeholder="Your last name..">
+  
+      <label for="country">Available Time</label>
+      <select id="country" name="time">
+        <option value="Morning">Morning</option>
+        <option value="Afternoon">Afternoon</option>
+        <option value="Evening">Evening</option>
+      </select>
+    
+      <label for="country">Available Time : </label><br>
+      <input type="radio" name="pay" value="Online" id="">
+      <label for="country">Online</label><br>
+
+      <input type="radio" name="pay" value="On Clinic" id="">
+      <label for="country">On Clinic</label>
+
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+
+{% endblock %}

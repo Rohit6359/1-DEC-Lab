@@ -33,12 +33,16 @@ class Inquiry(models.Model):
 class BookingTest(models.Model):
     
     choices = (('Online','Online'),('On Clinic','On Clinic'))
+    time_choice = (('Morning','Morning'),('Afternoon','Afternoon'),('Evening','Evening'))
 
     client = models.ForeignKey(ClientUser,on_delete=models.CASCADE)
     test = models.ForeignKey(Test,on_delete=models.CASCADE)
     date = models.DateField()
+    time = models.CharField(max_length=50,choices=time_choice,default='Morning')
     book_time = models.DateTimeField(auto_now_add=True)
     pay_type = models.CharField(max_length=50,choices=choices)
+    pay_verify = models.BooleanField(default=False)
+    pay_id = models.CharField(max_length=30,null=True,blank=True)
 
     def __str__(self):
         return self.test.title 

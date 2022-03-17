@@ -71,10 +71,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a href="{% url 'about' %}">About</a></li>
 						<li><a href="{% url 'treatments' %}">Treatments</a></li>
 						<li><a href="{% url 'contact' %}">Contact</a></li>
-						<li><a href="{% url 'signin' %}">Login</a></li>
-						<li><a href="{% url 'signup' %}">Registration</a></li>
+
+						
 						{% if request.session.username %}
 						<li><a href="">{{uid.fname}}</a></li>
+						<li><a href="{% url 'client-logout' %}">Logout</a></li>
+						{% else %}
+						<li><a href="{% url 'signin' %}">Login</a></li>
+						<li><a href="{% url 'signup' %}">Registration</a></li>
 						{% endif %}
 					</ul>
 					<div class="clearfix"> </div>
