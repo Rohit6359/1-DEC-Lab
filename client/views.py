@@ -31,7 +31,25 @@ def codes(request):
 def contact(request):
     return render(request,'contact.html')
 
+def client_profile(request):
+    try:
+        uid = ClientUser.objects.get(email=request.session['username'])
+        return render(request,'client-profile.html',{'uid':uid})
+    except:
+        return render(request,'client-profile.html')
 
+def change_password(request):
+    try:
+        uid = ClientUser.objects.get(email=request.session['username'])
+        if uid.password==request.POST['opassword']:
+            if request.POST['npassword']==request.POST['cpassword']:
+                uid.password=request.POST['npassword']
+                uid.save()
+                return render(request,'change-password.html',{'msg':'Password Updated'})
+            return render(request,'change-password.html',{'msg':'Both new Password are not same'})
+        return render(request,'change-password.html',{'uid':uid,'msg':'Old Password is wrong'})
+    except:
+        return render(request,'change-password.html',{'uid':uid})
 def treatments(request):
     return render(request,'treatments.html')
 

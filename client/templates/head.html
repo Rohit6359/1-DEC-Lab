@@ -74,12 +74,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 						
 						{% if request.session.username %}
-						<li><a href="">{{uid.fname}}</a></li>
-						<li><a href="{% url 'client-logout' %}">Logout</a></li>
+						<li role="presentation" class="dropdown">
+							<a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">{{uid.fname}}'s Profile<span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
+							  <li><a href="{% url 'client-profile' %}" tabindex="-1" role="tab" id="dropdown1-tab"  aria-controls="dropdown1">Profile</a></li>
+							  <li><a href="{% url 'change-password' %}" tabindex="-1" role="tab" id="dropdown1-tab"  aria-controls="dropdown1">Change Password</a></li>
+							  <li><a href="{% url 'client-logout' %}" tabindex="-1" role="tab" id="dropdown2-tab"  aria-controls="dropdown2">Logout</a></li>
+							</ul>
+						</li>
 						{% else %}
-						<li><a href="{% url 'signin' %}">Login</a></li>
-						<li><a href="{% url 'signup' %}">Registration</a></li>
+						<li role="presentation" class="dropdown">
+							<a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">Signin/Signup<span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
+							  <li><a href="{% url 'signin' %}" tabindex="-1" role="tab" id="dropdown1-tab"  aria-controls="dropdown1">Login</a></li>
+							  <li><a href="{% url 'signup' %}" tabindex="-1" role="tab" id="dropdown2-tab"  aria-controls="dropdown2">Registration</a></li>
+							</ul>
+						</li>
 						{% endif %}
+						
 					</ul>
 					<div class="clearfix"> </div>
 				</div>
