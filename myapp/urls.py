@@ -17,4 +17,5 @@ urlpatterns = [
     path('test-status-en/<int:pk>',views.test_status_en,name='test-status-en'),
     path('test-status-dis/<int:pk>',views.test_status_des,name='test-status-dis'),
     path('test-delete/<int:pk>',views.test_delete,name='test-delete'),
+    path('payment-details/',views.payment_details,name='payment-details'),
 ]

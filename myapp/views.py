@@ -158,3 +158,7 @@ def test_delete(request,pk):
     test = Test.objects.get(id=pk)
     test.delete()
     return redirect('pending-test')
+
+def payment_details(request):
+    uid = User.objects.get(email=request.session['email'])
+    return render(request,'payment-details.html',{'uid':uid})

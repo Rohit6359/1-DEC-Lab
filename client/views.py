@@ -32,11 +32,18 @@ def contact(request):
     return render(request,'contact.html')
 
 def client_profile(request):
-    try:
-        uid = ClientUser.objects.get(email=request.session['username'])
-        return render(request,'client-profile.html',{'uid':uid})
-    except:
-        return render(request,'client-profile.html')
+    uid = ClientUser.objects.get(email=request.session['username'])
+    if request.method == 'POST':
+        uid.fname = request.POST['fname']
+        uid.lname = request.POST['lname']
+        uid.gender = request.POST['gender']
+        uid.age = request.POST['age']
+        uid.mobile = request.POST['mobile']
+        uid.aadhar = request.POST['aadhar']
+        uid.address = request.POST['address']
+        uid.save()
+        return render(request,'client-profile.html',{'uid':uid,'msg':'Profile Updated'})
+    return render(request,'client-profile.html',{'uid':uid})
 
 def change_password(request):
     try:
