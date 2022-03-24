@@ -1,0 +1,9 @@
+{% extends 'head.html' %}
+{% load static %}
+
+{% block header %}
+<center>
+    <h1>Success</h1>
+    <a href="{% url 'invoice' %}"><button class="btn btn-primary">Download recipt</button></a>
+</center>
+{% endblock %}

@@ -16,4 +16,4 @@ class UserAdmin(admin.ModelAdmin):
     
 @admin.register(BookingTest)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['client','test','book_time','pay_id']
+    list_display = ['id','client','test','book_time','pay_id','pay_verify']

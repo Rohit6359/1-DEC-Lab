@@ -3,10 +3,55 @@
 
 {% block header %}
 
-<h1>Book Test : {{book.test.title}}</h1>
+<center>
+    <div class="card card1" >
+        <h2> Booking Details</h2>
+        <h4>Booking Id : {{book.id}}</h4>
+        <h4>Booking Date : {{book.date}}</h4>
+        <h4>Booking Time : {{book.time}}</h4>
+        <h4>Booking Test : {{book.test.title}}</h4>
+        {% if book.pay_type == 'On Clinic' %}
+        <h4>Booking Type : {{book.pay_type}}</h4>
+        <button class="btn btn-primary"></button>
+        {% else %}
+        <h4>Booking Type : {{book.pay_type}}</h4>
 
-<h3> Price to be pay ({{book.pay_type}}) : {{book.test.price}}</h3>
+        <button class="btn" id="pay-btn">Donate❤️</button>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <script>
+          var options = {
+             
+            // Enter the Key ID generated from the Dashboard
+            key: "{{ razorpay_merchant_key }}",
+             
+            // Amount is in currency subunits.
+            // Default currency is INR. Hence,
+            // 50000 refers to 50000 paise
+            amount: "{{ razorpay_amount }}",
+            currency: "{{ currency }}",
+             
+            // Your/store name.
+            name: "Lab Booking",
+             
+            // Pass the `id` obtained in the response of Step 1
+            order_id: "{{ razorpay_order_id }}",
+            callback_url: "{{ callback_url }}",
+          };
+           
+          // initialise razorpay with the options.
+          var rzp1 = new Razorpay(options);
+           
+          // add event listener to the payment button.
+          document.getElementById("pay-btn").onclick = function (e) {
+            rzp1.open();
+            e.preventDefault();
+          };
+        </script>
+        {% endif %}
+      </div>
+    
+</center>
 
-<h3>Booking Time : {{book.date}}  ({{book.time}})</h3>
+  
 
 {% endblock %}

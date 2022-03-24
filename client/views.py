@@ -5,6 +5,9 @@ from .models import *
 from django.conf import settings
 from django.core.mail import send_mail
 from random import randrange
+import razorpay
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseBadRequest
 
 
 # Create your views here.
@@ -97,6 +100,9 @@ def view_test(request,pk):
     test = Test.objects.get(id=pk)
     return render(request,'view-test.html',{'test':test})
 
+def invoice(request,pk):
+    book = BookingTest.objects.get(id=pk)
+    return render(request,'invoice.html',{'book':book})
 
 def signup(request):
     if request.method == 'POST':
@@ -163,5 +169,92 @@ def proceed_test(request,pk):
                 pay_type = request.POST['pay']
             )
             return render(request,'bookconfirm.html',{'uid':uid,'book':book})
-        return HttpResponse('Online Payment Coming Soon!!')
+        else:
+            book = BookingTest.objects.create(
+                client = uid,
+                test = test,
+                date = request.POST['date'],
+                time =  request.POST['time'],
+                pay_type = request.POST['pay']
+            )
+            currency = 'INR'
+            amount = int(book.test.price)*100  # Rs. 200
+        
+            # Create a Razorpay Order
+            razorpay_order = razorpay_client.order.create(dict(amount=amount,
+                                                            currency=currency,
+                                                            payment_capture='0'))
+        
+            # order id of newly created order.
+            razorpay_order_id = razorpay_order['id']
+            callback_url = f'paymenthandler/{book.id}'
+        
+            # we need to pass these details to frontend.
+            context = {}
+            context['razorpay_order_id'] = razorpay_order_id
+            context['razorpay_merchant_key'] = settings.RAZOR_KEY_ID
+            context['razorpay_amount'] = amount
+            context['currency'] = currency
+            context['callback_url'] = callback_url
+            context['uid'] = uid
+            context['book'] = book
+            return render(request,'bookconfirm.html',context=context)
+
     return redirect('signin')
+
+
+ 
+# authorize razorpay client with API Keys.
+razorpay_client = razorpay.Client(
+    auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
+ 
+# we need to csrf_exempt this url as
+# POST request will be made by Razorpay
+# and it won't have the csrf token.
+@csrf_exempt
+def paymenthandler(request,pk):
+    uid = ClientUser.objects.get(email=request.session['username'])
+    book = BookingTest.objects.get(id=pk)
+    # only accept POST request.
+    if request.method == "POST":
+        try:
+           
+            # get the required parameters from post request.
+            payment_id = request.POST.get('razorpay_payment_id', '')
+            razorpay_order_id = request.POST.get('razorpay_order_id', '')
+            signature = request.POST.get('razorpay_signature', '')
+            params_dict = {
+                'razorpay_order_id': razorpay_order_id,
+                'razorpay_payment_id': payment_id,
+                'razorpay_signature': signature
+            }
+ 
+            # verify the payment signature.
+            result = razorpay_client.utility.verify_payment_signature(
+                params_dict)
+            # if result is None:
+            amount = int(book.test.price)*100  # Rs. 200
+            try:
+
+                # capture the payemt
+                razorpay_client.payment.capture(payment_id, amount)
+                book.pay_verify = True
+                book.pay_id = payment_id
+                book.save()
+                # render success page on successful caputre of payment
+                return render(request, 'success.html')
+            except:
+
+                # if there is an error while capturing payment.
+                return render(request, 'fail.html')
+            # else:
+
+            #     # if signature verification fails.
+            #     return render(request, 'paymentfail.html')
+        except:
+ 
+            # if we don't find the required parameters in POST data
+            return HttpResponseBadRequest()
+    else:
+       # if other than POST request is made.
+        return HttpResponseBadRequest()

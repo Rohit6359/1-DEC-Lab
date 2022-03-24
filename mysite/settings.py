@@ -136,3 +136,6 @@ EMAIL_HOST_USER = 'demotest.django@gmail.com'
 EMAIL_HOST_PASSWORD = '9097603646'
 
 # email.mysocietyapp@gmail.com,Myapp@456
+
+RAZOR_KEY_ID = 'rzp_test_yzNLJuwz2in3Lz'
+RAZOR_KEY_SECRET = 'XDkElxQqlqyyvSQD5fQAnuQr'
